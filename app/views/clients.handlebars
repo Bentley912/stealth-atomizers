@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">   
+            <h2>Welcome {{contents.username}}</h2>
+            <h2>Email on file {{contents.email}}</h2>
+            <form action="/users/{{contents.username}}?_method=PUT" method="POST">
+            <label for ="name">Enter your full name</label>
+                <input type="text" id = "name" name="name">
+            <label for ="address">Enter your address</label>
+                <input type="text" id = "address" name="address">
+            <label for ="phone">Enter your contact number</label>
+                <input type="tel" id = "phone" name="phone">
+                <button class="btn btn-large btn-primary">
+                    Update your info
+                </button>
+            </form> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">    
+        <h3>{{contents.name}}</h3>
+        <h3>{{contents.address}}</h3>
+        <h3>{{contents.contact}}</h3>
+        </div>
+    </div>
+</div>
