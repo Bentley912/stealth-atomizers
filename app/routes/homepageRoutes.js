@@ -37,9 +37,9 @@ module.exports = function(app) {
     });
     app.post("/users", function(req, res) {
         database.Client.create({
-            email: req.body.email,
+            email: req.body.signup,
             password: req.body.password,
-            username: req.body.user
+            username: req.body.username
         }).then(function(data) {
             res.redirect("/users/" + data.username);
         });
