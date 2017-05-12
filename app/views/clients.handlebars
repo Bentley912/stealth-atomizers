@@ -1,6 +1,7 @@
+{{> elements/header}}
 <div class="container">
     <div class="row">
-        <div class="col-md-8">   
+        <div class="col-md-12">   
             <h2>Welcome {{contents.username}}</h2>
             <h2>Email on file {{contents.email}}</h2>
             <form action="/users/{{contents.username}}?_method=PUT" method="POST">
