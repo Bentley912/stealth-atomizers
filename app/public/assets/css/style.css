@@ -3,9 +3,3 @@ body {
     height: 100%;
     width: 100%;
 }
-
-body {
-    background: radial-gradient(grey, lightgrey, grey);
-    background-size: 5px 5px;
-    color: black;
-}
