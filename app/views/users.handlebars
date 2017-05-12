@@ -1,12 +1,42 @@
-<div class = "container">
-    <form action="/users" method="POST">
-        <label for="signUp">Email</label>
-        <input id ="signUp" type = "email" name = "email" placeholder="enter your email address">
-        <label for="PW">Password</label>
-        <input id ="PW" type ="password" name = "password">
-        <label for ="userName">User Name</label>
-        <input id ="userName"type = "text" name = "user" placeholder="select your username">
-        <button class = "btn btn-large btn-primary">
-            submit
-        </button>
-    </form>
+
+<div class="container text-center">
+    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+        <div class="well bs-component">
+            <form class="form-horizontal" action="/users" method="POST"> 
+            <fieldset>
+                <legend>Sign Up </legend>
+                <div class="form-group">
+                <label for="signup" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" id="signUp" placeholder="Email" autocomplete="off" name="signup">
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="pWord" class="col-lg-2 control-label">Password</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="pWord" placeholder="Password" autocomplete="off" name="password">
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="confirmPWord" class="col-lg-2 control-label">Confirm Password</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="confirm" placeholder="Password" autocomplete="off" name="confirm_password">
+                </div>
+                </div>
+                <div class="form-group">
+                <label for="userName" class="col-lg-2 control-label">User Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="userName" placeholder="UserName" autocomplete="off" name="username">
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">             
+                    <button type="submit" class="btn btn-success">Sign Up</button>
+                </div>
+                </div>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+    <div
+</div>
