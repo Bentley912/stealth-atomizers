@@ -1,4 +1,3 @@
-console.log("Clients PASS");
 module.exports = function(sequelize, DataTypes) {
     var Client = sequelize.define("Client", {
         email: {
@@ -18,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         username: {
             type: DataTypes.STRING,
-            notNull: true
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING
@@ -26,13 +25,60 @@ module.exports = function(sequelize, DataTypes) {
         address: {
             type: DataTypes.STRING
         },
+        city: {
+            type: DataTypes.STRING
+        },
+        state: {
+            type: DataTypes.STRING
+        },
+        zip: {
+            type: DataTypes.STRING
+        },
         contact: {
             type: DataTypes.STRING
         }
     }, {
+        // We're saying that we want our Author to have Posts
         classMethods: {
             associate: function(models) {
-                Client.hasMany(models.Job);
+                // Associating Author with Posts
+                // When an Author is deleted, also delete any associated Posts
+                Client.hasMany(models.Job, {
+                    onDelete: "cascade"
+                });
+            }
+        }
+    }, {
+        // We're saying that we want our Author to have Posts
+        classMethods: {
+            associate: function(models) {
+                // Associating Author with Posts
+                // When an Author is deleted, also delete any associated Posts
+                Client.hasMany(models.Rating, {
+                    onDelete: "cascade"
+                });
+            }
+        }
+    }, {
+        // We're saying that we want our Author to have Posts
+        classMethods: {
+            associate: function(models) {
+                // Associating Author with Posts
+                // When an Author is deleted, also delete any associated Posts
+                Client.hasMany(models.Message, {
+                    onDelete: "cascade"
+                });
+            }
+        }
+    }, {
+        // We're saying that we want our Author to have Posts
+        classMethods: {
+            associate: function(models) {
+                // Associating Author with Posts
+                // When an Author is deleted, also delete any associated Posts
+                Client.hasMany(models.JobCategorie, {
+                    onDelete: "cascade"
+                });
             }
         }
     });
