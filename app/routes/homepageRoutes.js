@@ -19,8 +19,10 @@ module.exports = function(app) {
     });
     app.get("/users/:username/home", function(req, res) {
         database.Client.findOne({
+            include: [database.Job],
             where: { username: req.params.username }
         }).then(function(data) {
+            console.log(data);
             res.render("clienthome", { contents: data });
         });
     });
@@ -42,6 +44,15 @@ module.exports = function(app) {
             username: req.body.username
         }).then(function(data) {
             res.redirect("/users/" + data.username);
+        });
+    });
+    app.post("/users/:username/home", function(req, res) {
+        database.Job.create({
+            title: req.body.title,
+            description: req.body.description,
+            ClientId: req.body.ClientId
+        }).then(function(data) {
+            res.redirect("/users/" + req.params.username + "/home");
         });
     });
 }; //ends exports function

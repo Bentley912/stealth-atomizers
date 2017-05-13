@@ -1,13 +1,17 @@
+.banner {
+    color: white;
+    width: 100%;
+    height: 30em;
+    background: url('../images/workspace.jpeg');
+    background-size: cover;
+}
 
-.banner{
-    color:white;
-    width:100%;
-  height:30em;
-background: url('../images/workspace.jpeg');
-
-}   
-
-.bigText{
-    color:white;
-    font-size:5em;
+.bigText {
+    color: white;
+    font-size: 5em;
+    background: #1995dc;
+    width: 80%;
+    mix-blend-mode: hard-light;
+    text-shadow: 2px 2px black;
+    border-radius: 20px;
 }
