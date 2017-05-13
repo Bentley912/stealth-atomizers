@@ -1,5 +1,5 @@
 var database = require("../models");
-console.log("CONTROLLERS pass");
+console.log("homepageRoutes PASS");
 module.exports = function(app) {
 
     app.get("/", function(req, res) {
@@ -17,7 +17,7 @@ module.exports = function(app) {
             res.render("clients", { contents: data });
         });
     });
-    app.get("/users/:username/home", function(req, res) {
+    app.get("/users/:username/dashboard", function(req, res) {
         database.Client.findOne({
             include: [database.Job],
             where: { username: req.params.username }
@@ -33,7 +33,7 @@ module.exports = function(app) {
         }, {
             where: { username: req.params.username }
         }).then(function() {
-            res.redirect("/users/" + req.params.username + "/home");
+            res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
     app.post("/users", function(req, res) {
@@ -45,9 +45,25 @@ module.exports = function(app) {
             res.redirect("/users/" + data.username);
         });
     });
-    app.post("/users/:username/home", function(req, res) {
+    app.post("/users/:username/dashboard", function(req, res) {
         database.Job.create({
-            title: req.body.title,
+            name: req.body.title,
+            description: req.body.description,
+            ClientId: req.body.ClientId
+        }).then(function(data) {
+            res.redirect("/users/" + req.params.username + "/dashboard");
+        });
+    });
+    app.get("/users/:username/postJob", function(req, res) {
+        database.Client.findOne({
+            where: { username: req.params.username }
+        }).then(function(data) {
+            res.render("postJob", { contents: data });
+        });
+    });
+    app.post("/users/:username/dashboard", function(req, res) {
+        database.Job.create({
+            name: req.body.title,
             description: req.body.description,
             ClientId: req.body.ClientId
         }).then(function(data) {
