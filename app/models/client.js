@@ -1,3 +1,4 @@
+console.log("Clients PASS");
 module.exports = function(sequelize, DataTypes) {
     var Client = sequelize.define("Client", {
         email: {
@@ -27,6 +28,12 @@ module.exports = function(sequelize, DataTypes) {
         },
         contact: {
             type: DataTypes.STRING
+        }
+    }, {
+        classMethods: {
+            associate: function(models) {
+                Client.hasMany(models.Job);
+            }
         }
     });
     return Client;
