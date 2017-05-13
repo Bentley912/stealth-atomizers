@@ -1,0 +1,9 @@
+<div class="container">
+{{#each contents}}
+<h1>Posted by: <a href="/users/{{this.Client.username}}/dashboard">{{this.Client.username}}</a></h1>
+<h2>Job Title: {{this.name}}</h2>
+<h2>Job Description: {{this.description}}</h2>
+<h2><a href="/jobs/{{this.id}}">View the full page</a></h2>
+<hr>
+{{/each}}
+</div>
