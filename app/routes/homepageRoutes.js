@@ -21,7 +21,7 @@ module.exports = function(app) {
         database.Client.findOne({
             where: { username: req.params.username }
         }).then(function(data) {
-            res.render("clienthome", { contents: data });
+            res.render("dashboard", { contents: data });
         });
     });
     app.put("/users/:username", function(req, res) {
