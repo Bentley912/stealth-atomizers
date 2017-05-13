@@ -16,7 +16,7 @@ module.exports = function(app) {
             ClientId: req.body.ClientId
         }).then(function(data) {
 
-            res.redirect("/users/" + req.params.username + "/dahsboard");
+            res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
     app.get("/jobs/:id", function(req, res) {

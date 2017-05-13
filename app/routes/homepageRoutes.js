@@ -1,5 +1,6 @@
 var database = require("../models");
 console.log("homepageRoutes PASS");
+var currentUser;
 module.exports = function(app) {
 
     app.get("/", function(req, res) {
@@ -22,15 +23,11 @@ module.exports = function(app) {
             include: [database.Job],
             where: { username: req.params.username }
         }).then(function(data) {
-            res.render("dashboard", { contents: data });
+            res.render("dashboard", { contents: data, currentUser: currentUser });
         });
     });
     app.put("/users/:username", function(req, res) {
-        database.Client.update({
-            name: req.body.name,
-            address: req.body.address,
-            contact: req.body.phone
-        }, {
+        database.Client.update(req.body, {
             where: { username: req.params.username }
         }).then(function() {
             res.redirect("/users/" + req.params.username + "/dashboard");
@@ -42,6 +39,7 @@ module.exports = function(app) {
             password: req.body.password,
             username: req.body.username
         }).then(function(data) {
+            currentUser = data.username;
             res.redirect("/users/" + data.username);
         });
     });
