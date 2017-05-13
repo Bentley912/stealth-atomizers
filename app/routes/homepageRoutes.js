@@ -67,6 +67,7 @@ module.exports = function(app) {
             description: req.body.description,
             ClientId: req.body.ClientId
         }).then(function(data) {
+
             res.redirect("/users/" + req.params.username + "/dahsboard");
         });
     });
