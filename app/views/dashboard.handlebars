@@ -33,6 +33,7 @@
                 </thead>
             {{#each contents.Jobs}}
                    <tr class="warning">
+
                     {{#unless this.taken}}
                     <td><a href="/Jobs/{{this.id}}">{{this.id}}</a></td>
                     <td>{{this.name}}</td>

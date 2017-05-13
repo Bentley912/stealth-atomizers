@@ -54,5 +54,4 @@ module.exports = function(app) {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
-
 }; //ends exports function
