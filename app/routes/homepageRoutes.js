@@ -22,8 +22,12 @@ module.exports = function(app) {
             include: [database.Job],
             where: { username: req.params.username }
         }).then(function(data) {
+<<<<<<< HEAD
             console.log(data);
             res.render("clienthome", { contents: data });
+=======
+            res.render("dashboard", { contents: data });
+>>>>>>> master
         });
     });
     app.put("/users/:username", function(req, res) {
