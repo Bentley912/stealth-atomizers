@@ -54,21 +54,5 @@ module.exports = function(app) {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
-    app.get("/users/:username/postJob", function(req, res) {
-        database.Client.findOne({
-            where: { username: req.params.username }
-        }).then(function(data) {
-            res.render("postJob", { contents: data });
-        });
-    });
-    app.post("/users/:username/dashboard", function(req, res) {
-        database.Job.create({
-            name: req.body.title,
-            description: req.body.description,
-            ClientId: req.body.ClientId
-        }).then(function(data) {
 
-            res.redirect("/users/" + req.params.username + "/dahsboard");
-        });
-    });
 }; //ends exports function

@@ -33,8 +33,8 @@
                 </thead>
             {{#each contents.Jobs}}
                    <tr class="warning">
-                    {{# unless this.taken}}
-                    <td>{{this.id}}</td>
+                    {{#unless this.taken}}
+                    <td><a href="/Jobs/{{this.id}}">{{this.id}}</a></td>
                     <td>{{this.name}}</td>
                     <td>{{this.description}}</td>
                     </tr>
