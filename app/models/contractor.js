@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Client = sequelize.define("Client", {
+    var Contractor = sequelize.define("Contractor", {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
         associate: function(models) {
           // Associating Author with Posts
           // When an Author is deleted, also delete any associated Posts
-          Client.hasMany(models.Job, {
+          Contractor.hasMany(models.Job, {
             onDelete: "cascade"
           });
         }
@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
         associate: function(models) {
           // Associating Author with Posts
           // When an Author is deleted, also delete any associated Posts
-          Client.hasMany(models.Rating, {
+          Contractor.hasMany(models.Rating, {
             onDelete: "cascade"
           });
         }
@@ -66,7 +66,7 @@ module.exports = function(sequelize, DataTypes) {
         associate: function(models) {
           // Associating Author with Posts
           // When an Author is deleted, also delete any associated Posts
-          Client.hasMany(models.Message, {
+          Contractor.hasMany(models.Message, {
             onDelete: "cascade"
           });
         }
@@ -78,12 +78,12 @@ module.exports = function(sequelize, DataTypes) {
         associate: function(models) {
           // Associating Author with Posts
           // When an Author is deleted, also delete any associated Posts
-          Client.hasMany(models.JobCategorie, {
+          Contractor.hasMany(models.JobCategorie, {
             onDelete: "cascade"
           });
         }
       }
     }
     );
-    return Client;
+    return Contractor;
 };
