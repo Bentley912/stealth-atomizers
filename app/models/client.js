@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         contact: {
             type: DataTypes.STRING
-        }
+        },
     }, {
         // We're saying that we want our Author to have Posts
         classMethods: {
