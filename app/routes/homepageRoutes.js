@@ -1,15 +1,13 @@
 var database = require("../models");
 console.log("homepageRoutes PASS");
-var currentUser;
+
 module.exports = function(app) {
 
     app.get("/", function(req, res) {
-        currentUser = undefined;
         res.render("home");
     });
 
     app.get("/users", function(req, res) {
-        currentUser = undefined;
         res.render("users");
     });
 
@@ -17,7 +15,7 @@ module.exports = function(app) {
         database.Client.findOne({
             where: { username: req.params.username }
         }).then(function(data) {
-            res.render("clients", { contents: data, currentUser: currentUser });
+            res.render("clients", { contents: data });
         });
     });
     app.get("/users/:username/dashboard", function(req, res) {
@@ -25,7 +23,7 @@ module.exports = function(app) {
             include: [database.Job],
             where: { username: req.params.username }
         }).then(function(data) {
-            res.render("dashboard", { contents: data, currentUser: currentUser });
+            res.render("dashboard", { contents: data });
         });
     });
     app.put("/users/:username", function(req, res) {
@@ -58,7 +56,7 @@ module.exports = function(app) {
         database.Client.findOne({
             where: { username: req.params.username }
         }).then(function(data) {
-            res.render("postJob", { contents: data, currentUser: currentUser });
+            res.render("postJob", { contents: data });
         });
     });
 
@@ -67,14 +65,14 @@ module.exports = function(app) {
             include: [database.Client],
             where: { id: req.params.id }
         }).then(function(data) {
-            res.render("singleJob", { contents: data, currentUser: currentUser });
+            res.render("singleJob", { contents: data });
         });
     });
     app.get("/jobs", function(req, res) {
         database.Job.findAll({
             include: [database.Client]
         }).then(function(data) {
-            res.render("allJobs", { contents: data, currentUser: currentUser });
+            res.render("allJobs", { contents: data });
         });
     });
 }; //ends exports function
