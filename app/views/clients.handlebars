@@ -6,11 +6,15 @@
             <h2>Email on file {{contents.email}}</h2>
             <form action="/users/{{contents.username}}?_method=PUT" method="POST">
             <label for ="name">Enter your full name</label>
-                <input type="text" id = "name" name="name">
+                <input type="text" id = "name" name="name" value="{{contents.name}}">
+                <hr>
             <label for ="address">Enter your address</label>
-                <input type="text" id = "address" name="address">
+                <input type="text" id = "address" name="address" value="{{contents.address}}">
+                <hr>
             <label for ="phone">Enter your contact number</label>
-                <input type="tel" id = "phone" name="phone">
+                <input type="tel" id = "phone" name="contact" value="{{contents.contact}}">
+                <hr>
+                <input type="file" name = "image">
                 <button class="btn btn-large btn-primary">
                     Update your info
                 </button>
