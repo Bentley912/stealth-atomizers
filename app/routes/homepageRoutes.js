@@ -1,5 +1,6 @@
 var database = require("../models");
 console.log("homepageRoutes PASS");
+
 module.exports = function(app) {
 
     app.get("/", function(req, res) {
@@ -26,11 +27,7 @@ module.exports = function(app) {
         });
     });
     app.put("/users/:username", function(req, res) {
-        database.Client.update({
-            name: req.body.name,
-            address: req.body.address,
-            contact: req.body.phone
-        }, {
+        database.Client.update(req.body, {
             where: { username: req.params.username }
         }).then(function() {
             res.redirect("/users/" + req.params.username + "/dashboard");
@@ -42,6 +39,7 @@ module.exports = function(app) {
             password: req.body.password,
             username: req.body.username
         }).then(function(data) {
+            currentUser = data.username;
             res.redirect("/users/" + data.username);
         });
     });
@@ -52,6 +50,29 @@ module.exports = function(app) {
             ClientId: req.body.ClientId
         }).then(function(data) {
             res.redirect("/users/" + req.params.username + "/dashboard");
+        });
+    });
+    app.get("/users/:username/postJob", function(req, res) {
+        database.Client.findOne({
+            where: { username: req.params.username }
+        }).then(function(data) {
+            res.render("postJob", { contents: data });
+        });
+    });
+
+    app.get("/jobs/:id", function(req, res) {
+        database.Job.findOne({
+            include: [database.Client],
+            where: { id: req.params.id }
+        }).then(function(data) {
+            res.render("singleJob", { contents: data });
+        });
+    });
+    app.get("/jobs", function(req, res) {
+        database.Job.findAll({
+            include: [database.Client]
+        }).then(function(data) {
+            res.render("allJobs", { contents: data });
         });
     });
 }; //ends exports function
