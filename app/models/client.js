@@ -37,46 +37,30 @@ module.exports = function(sequelize, DataTypes) {
         contact: {
             type: DataTypes.STRING
         },
+        isContractor: {
+            type: DataTypes.BOOLEAN
+        }
     }, {
-        // We're saying that we want our Author to have Posts
+        
         classMethods: {
             associate: function(models) {
-                // Associating Author with Posts
-                // When an Author is deleted, also delete any associated Posts
+                
+                
                 Client.hasMany(models.Job, {
                     onDelete: "cascade"
                 });
             }
         }
     }, {
-        // We're saying that we want our Author to have Posts
+        
         classMethods: {
             associate: function(models) {
-                // Associating Author with Posts
-                // When an Author is deleted, also delete any associated Posts
+                
+                
                 Client.hasMany(models.Rating, {
                     onDelete: "cascade"
                 });
-            }
-        }
-    }, {
-        // We're saying that we want our Author to have Posts
-        classMethods: {
-            associate: function(models) {
-                // Associating Author with Posts
-                // When an Author is deleted, also delete any associated Posts
                 Client.hasMany(models.Message, {
-                    onDelete: "cascade"
-                });
-            }
-        }
-    }, {
-        // We're saying that we want our Author to have Posts
-        classMethods: {
-            associate: function(models) {
-                // Associating Author with Posts
-                // When an Author is deleted, also delete any associated Posts
-                Client.hasMany(models.JobCategorie, {
                     onDelete: "cascade"
                 });
             }
