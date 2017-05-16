@@ -15,7 +15,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(method("_method"));
 //initalizing the listener
-db.sequelize.sync({}).then(function() {
+db.sequelize.sync({ force: true}).then(function() {
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
     });
@@ -27,4 +27,3 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 //routes 
 require("./routes/homepageRoutes")(app);
-require("./routes/jobpageRoutes")(app);
