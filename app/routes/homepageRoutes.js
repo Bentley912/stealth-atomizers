@@ -47,6 +47,7 @@ module.exports = function(app) {
         database.Job.create({
             name: req.body.title,
             description: req.body.description,
+            category: req.body.jobCategory,
             ClientId: req.body.ClientId
         }).then(function(data) {
             res.redirect("/users/" + req.params.username + "/dashboard");
@@ -57,6 +58,13 @@ module.exports = function(app) {
             where: { username: req.params.username }
         }).then(function(data) {
             res.render("postJob", { contents: data });
+        });
+    });
+    app.get("/users/:username/profile", function(req, res) {
+        database.Client.findOne({
+            where: { username: req.params.username }
+        }).then(function(data) {
+            res.render("profile", { contents: data });
         });
     });
 
@@ -71,6 +79,14 @@ module.exports = function(app) {
     app.get("/jobs", function(req, res) {
         database.Job.findAll({
             include: [database.Client]
+        }).then(function(data) {
+            res.render("allJobs", { contents: data });
+        });
+    });
+    app.get("/jobs/:category", function(req, res) {
+        database.Job.findAll({
+            include: [database.Client],
+            where: { category: req.params.category }
         }).then(function(data) {
             res.render("allJobs", { contents: data });
         });

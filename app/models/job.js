@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             description: {
                 type: DataTypes.STRING
             },
-            file: {
+            category: {
                 type: DataTypes.STRING
             },
             taken: {

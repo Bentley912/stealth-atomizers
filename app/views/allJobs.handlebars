@@ -1,9 +1,18 @@
-{{!--<div class="container">
+<div class="container">
+    <div class="form-group">    
+            
+             <label for="select" class="control-label">Category</label>
+                <a href="jobs/Front-End">Front-End</a>
+                <a href="jobs/Back-End">Back-End</a>
+                <a href="jobs/Design">Design</a>
+                <a href="jobs/Full-Stack">Full-Stack</a>
+                </select>
+    </div>
 {{#each contents}}
-<h1>Posted by: <a href="/users/{{this.Client.username}}/dashboard">{{this.Client.username}}</a></h1>
+<h1>Posted by: <a href="/users/{{this.Client.username}}/profile">{{this.Client.username}}</a></h1>
 <h2>Job Title: {{this.name}}</h2>
 <h2>Job Description: {{this.description}}</h2>
 <h2><a href="/jobs/{{this.id}}">View the full page</a></h2>
 <hr>
 {{/each}}
-</div>--}}
+</div>
