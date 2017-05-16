@@ -1,4 +1,4 @@
-<div class = "form-input">
+{{!--<div class = "form-input">
     <form action="/users/{{contents.username}}/dashboard" method="POST">
         <label for ="title">Title</label>
         <input type = "text" name = "title">
@@ -6,4 +6,23 @@
         <input type = "text" name = "description">
         <input type="hidden"  name ="ClientId"value = {{contents.id}}>
         <button class= "btn btn-danger">Submit</button>
-    </form>
+    </form>--}}
+
+<div class="container">
+    <div class="well bs-component">
+        <form class="form-horizontal postForm" action="/users/{{contents.username}}/dashboard" method="POST">
+            <fieldset>
+            <legend>Post Your Job</legend>
+            <div class="form-group">
+                <label class="control-label" for="title">Job Title</label>
+                <input class="form-control" id="jobTitle" type="text" name="title">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="description">Description</label>
+                <input class="form-control" id="jobDescription" type="text" name="description">
+            </div>
+             <input type="hidden"  name ="ClientId"value = {{contents.id}}>
+            <button class= "btn btn-danger">Submit</button>
+        </form>
+    </div>  
+</div>
