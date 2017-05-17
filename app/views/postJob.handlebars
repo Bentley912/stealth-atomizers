@@ -7,7 +7,7 @@
         <input type="hidden"  name ="ClientId"value = {{contents.id}}>
         <button class= "btn btn-danger">Submit</button>
     </form>--}}
-
+{{> elements/header}}
 <div class="container">
     <div class="well bs-component">
         <form class="form-horizontal postForm" action="/users/{{contents.username}}/dashboard" method="POST">
