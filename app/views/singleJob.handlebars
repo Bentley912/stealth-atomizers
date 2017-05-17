@@ -1,26 +1,11 @@
-{{!--<div class="container">
-    <h1>Client Info</h1>
-    <h2>Posted By: <a href="/users/{{contents.Client.username}}/dashboard">{{contents.Client.username}}</a></h2>
-    <h2>Email: {{contents.Client.email}}</h2>
-    <h2>Contact Number: {{contents.Client.contact}}</h2>
-    <h1>Position info</h1>
-    <h2>Job Title: {{contents.name}}</h2>
-    <h2>Description: {{contents.description}}</h2>
-    {{#unless contents.taken}}
-    <h2>Still Available</h2>
-    {{/unless}}
-    {{#if contents.taken}}
-    <h2>Not Longer Available</h2>
-    {{/if}}
-</div>--}}
-
+{{> elements/header}}
 <div class="well well-lg">
     <div class="panel panel-success">
         <div class="panel-heading">
             <h2 class="panel-title">Job Title: {{contents.name}}</h2>
         </div>
         <div class="panel-body">
-            <h4>Posted By: <a href="/users/{{contents.Client.username}}/dashboard">{{contents.Client.username}}</a></h4>
+            <h4>Posted By: <a href="/users/{{contents.Client.username}}/profile">{{contents.Client.username}}</a></h4>
             <h4>Email: {{contents.Client.email}}</h4>
             <h4>Contact Number: {{contents.Client.contact}}</h4>
             <h4>Description: {{contents.description}}</h4>
