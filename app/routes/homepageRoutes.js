@@ -33,6 +33,19 @@ module.exports = function(app) {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
+    //image upload:
+    app.put("/users/image/", function(req, res){
+        console.log(req.body.pImage);
+        // database.Client.update(req.body, {
+        //     where: {
+        //         username:req.params.username
+        //     }
+        // }).then(function(){
+        //     res.redirect("/users/" + req.params.username + "/dashboard");
+        // });
+    });
+
+
     app.post("/users", function(req, res) {
         database.Client.create({
             email: req.body.signup,

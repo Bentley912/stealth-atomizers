@@ -34,6 +34,9 @@ module.exports = function(sequelize, DataTypes) {
                             allowNull: false
                         }
                     });
+                    Job.hasMany(models.Bid, {
+                        onDelete: "cascade"
+                    });
                 }
             }
         }
