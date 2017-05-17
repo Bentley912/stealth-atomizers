@@ -1,25 +1,19 @@
 {
-  "name": "p2tests",
+  "name": "workflow",
   "version": "1.0.0",
-  "description": "testing server",
+  "description": "",
   "main": "server.js",
-  "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
-    "express-handlebars": "^3.0.0",
-    "handlebars": "^4.0.8",
-    "method-override": "^2.3.8",
-    "mysql": "^2.13.0",
-    "node-localstorage": "^1.3.0",
-    "path": "^0.12.7",
-    "sequelize": "^3.30.4",
-    "sequelize-cli": "^2.7.0"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bentley912/stealth-atomizers.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bentley912/stealth-atomizers/issues"
+  },
+  "homepage": "https://github.com/Bentley912/stealth-atomizers#readme"
 }
