@@ -37,7 +37,8 @@ module.exports = function(app) {
         database.Client.create({
             email: req.body.signup,
             password: req.body.password,
-            username: req.body.username
+            username: req.body.username, 
+            isContractor: req.body.contractor
         }).then(function(data) {
             currentUser = data.username;
             res.redirect("/users/" + data.username);
