@@ -63,6 +63,9 @@ module.exports = function(sequelize, DataTypes) {
                 Client.hasMany(models.Message, {
                     onDelete: "cascade"
                 });
+                Client.hasMany(models.Bid, {
+                    onDelete: "cascade"
+                });
             }
         }
     });

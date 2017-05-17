@@ -14,11 +14,24 @@
             <label for ="phone">Enter your contact number</label>
                 <input type="tel" id = "phone" name="contact" value="{{contents.contact}}">
                 <hr>
-                <input type="file" name = "image">
+                
                 <button class="btn btn-large btn-primary">
                     Update your info
                 </button>
-            </form> 
+            </form>
+
+
+
+            <form action="/users/image/?_method=PUT" method="POST">
+            <input type="file" name = "pImage" id="pImage"><br>
+            <button class="btn btn-large btn-primary" type="submit">
+                    Upload Image
+                </button>
+            </form>
+
+
+
+
         </div>
     </div>
     <div class="row">
