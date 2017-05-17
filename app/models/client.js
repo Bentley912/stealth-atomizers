@@ -41,22 +41,22 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN
         }
     }, {
-        
+
         classMethods: {
             associate: function(models) {
-                
-                
+
+
                 Client.hasMany(models.Job, {
                     onDelete: "cascade"
                 });
             }
         }
     }, {
-        
+
         classMethods: {
             associate: function(models) {
-                
-                
+
+
                 Client.hasMany(models.Rating, {
                     onDelete: "cascade"
                 });

@@ -33,7 +33,7 @@ module.exports = function(app) {
         });
     });
     //image upload:
-    app.put("/users/image/", function(req, res){
+    app.put("/users/image/", function(req, res) {
         console.log(req.body.pImage);
         // database.Client.update(req.body, {
         //     where: {
@@ -49,7 +49,8 @@ module.exports = function(app) {
         database.Client.create({
             email: req.body.signup,
             password: req.body.password,
-            username: req.body.username
+            username: req.body.username,
+            isContractor: req.body.contractor
         }).then(function(data) {
             if (typeof localStorage === "undefined" || localStorage === null) {
                 var LocalStorage = require('node-localstorage').LocalStorage;
@@ -57,7 +58,8 @@ module.exports = function(app) {
             }
 
             localStorage.setItem('username', data.username);
-            currentUser = localStorage.getItem('username');
+            localStorage.setItem('id', data.id);
+            currentUser = { username: localStorage.getItem('username'), id: localStorage.getItem("id") };
             res.redirect("/users/" + data.username);
         });
     });
@@ -88,10 +90,18 @@ module.exports = function(app) {
 
     app.get("/jobs/:id", function(req, res) {
         database.Job.findOne({
-            include: [database.Client],
+            include: [database.Client, database.Bid],
             where: { id: req.params.id }
         }).then(function(data) {
             res.render("singleJob", { contents: data, currentUser: currentUser });
+        });
+    });
+    app.get("/jobs/find/:id/:ownerId", function(req, res) {
+        database.Bid.findAll({
+            include: [database.Client, database.Job],
+            where: { JobId: req.params.id }
+        }).then(function(data) {
+            res.render("singleJobAdmin", { contents: data, currentUser: currentUser });
         });
     });
     app.get("/jobs", function(req, res) {
@@ -107,6 +117,29 @@ module.exports = function(app) {
             include: [database.Client]
         }).then(function(data) {
             res.render("allJobs", { contents: data, currentUser: currentUser });
+        });
+    });
+    app.post("/jobs/:id", function(req, res) {
+        database.Bid.create({
+            bid: req.body.amount,
+            JobId: req.params.id,
+            ClientId: req.body.client
+        }).then(function() {
+            res.redirect("/jobs/" + req.params.id);
+        });
+    });
+    app.put("/jobs/:id", function(req, res) {
+        database.Job.update({
+            taken: req.body.accepted,
+            ClientId: req.body.worker
+        }, { where: { id: req.params.id } }).then(function() {
+            database.Client.findOne({
+                where: {
+                    id: req.body.id
+                }
+            }).then(function(data) {
+                res.redirect("/users/" + data.username + "/dashboard");
+            });
         });
     });
 }; //ends exports function
