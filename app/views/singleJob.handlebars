@@ -18,3 +18,27 @@
         </div>
     </div>
 </div>
+<div class="container">
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+        <div class="well bs-component">
+            <form class="form-horizontal" action="/jobs/{{contents.id}}" method="POST"> 
+            <fieldset>
+                <legend>Make a bid </legend>
+                <div class="form-group">
+                <label for="amount" class="control-label">Amount</label>
+                    <input type="number" class="form-control" id="amount" placeholder="Enter your amount" autocomplete="off" name="amount">
+                    <input type="hidden" name="client" value="{{currentUser.id}}">
+                    <input type="hidden" name="owner" value="{{contents.Client.username}}">
+                </div>
+                    <button type="submit" class="btn btn-success">Place Bid</button>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+        {{#each contents.Bids}}
+        <h3>Bidder Id: {{this.ClientId}}</h3>
+        <h4>Bid amount: {{this.bid}}</h4>
+        <hr>
+        {{/each}}

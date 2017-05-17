@@ -9,8 +9,8 @@
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <li><a href="/jobs">View All jobs</a></li>
-    <li><a href="/users/{{currentUser}}">Update your profile</a></li>
-    <li><a href="/users/{{currentUser}}/dashboard">Go to your dashboard</a></li>
+    <li><a id = "profile" href="/users/{{currentUser.username}}">Update your profile</a></li>
+    <li><a id = "dashboard"href="/users/{{currentUser.username}}/dashboard">Go to your dashboard</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="/">Log Out</a></li>
   </ul>

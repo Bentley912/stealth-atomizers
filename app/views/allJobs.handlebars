@@ -11,10 +11,14 @@
                 </select>
     </div>
 {{#each contents}}
+<div class="row">
 <h1>Posted by: <a href="/users/{{this.Client.username}}/profile">{{this.Client.username}}</a></h1>
+<hr>
 <h2>Job Title: {{this.name}}</h2>
 <h2>Job Description: {{this.description}}</h2>
+<hr>
 <h2><a href="/jobs/{{this.id}}">View the full page</a></h2>
 <hr>
+</div>
 {{/each}}
 </div>
