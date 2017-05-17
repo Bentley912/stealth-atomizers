@@ -49,7 +49,8 @@ module.exports = function(app) {
         database.Client.create({
             email: req.body.signup,
             password: req.body.password,
-            username: req.body.username
+            username: req.body.username, 
+            isContractor: req.body.contractor
         }).then(function(data) {
             if (typeof localStorage === "undefined" || localStorage === null) {
                 var LocalStorage = require('node-localstorage').LocalStorage;
