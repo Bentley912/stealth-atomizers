@@ -7,6 +7,11 @@ module.exports = function(app) {
         res.render("home");
     });
 
+    //for image upload
+    app.get("/image", function(req, res){
+        res.render("imageUpload");
+    });
+
     app.get("/users", function(req, res) {
         res.render("users");
     });
@@ -33,19 +38,46 @@ module.exports = function(app) {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
+    
+//**********************************************************************
     //image upload:
-    app.put("/users/image/", function(req, res){
-        console.log(req.body.pImage);
-        // database.Client.update(req.body, {
-        //     where: {
-        //         username:req.params.username
-        //     }
-        // }).then(function(){
-        //     res.redirect("/users/" + req.params.username + "/dashboard");
-        // });
+    app.post("/users/image/", function(req, res){
+        var AWS = require('aws-sdk');
+        var s3 = require('s3');
+        var awsS3Client = new AWS.S3();
+        var options = {
+        s3Client: awsS3Client,
+        // more options available. See API docs below. 
+        };
+        var client = s3.createClient(options);
+    
+
+    var params = {
+        localFile: req.body.pImage,
+ 
+        s3Params: {
+            Bucket: "stealthatomizers",
+            Key: "some/remote/file",
+        // other options supported by putObject, except Body and ContentLength. 
+        // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
+        },
+    };
+
+    var uploader = client.uploadFile(params);
+    uploader.on('error', function(err) {
+        console.error("unable to upload:", err.stack);
     });
 
+    uploader.on('progress', function() {
+        console.log("progress", uploader.progressMd5Amount,
+        uploader.progressAmount, uploader.progressTotal);
+    });
 
+    uploader.on('end', function() {
+        console.log("done uploading");
+    });
+});
+//**********************************************************************
     app.post("/users", function(req, res) {
         database.Client.create({
             email: req.body.signup,
