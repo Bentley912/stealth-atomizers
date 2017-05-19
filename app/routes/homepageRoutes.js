@@ -117,7 +117,7 @@ module.exports = function(app) {
             JobId: req.params.id,
             ClientId: req.body.client
         }).then(function(data) {
-            res.redirect("/jobs/" + data.JobId);
+            res.redirect("/jobs/" + req.params.id);
         });
     });
     app.put("/jobs/:id", function(req, res) {
