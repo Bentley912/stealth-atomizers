@@ -4,11 +4,11 @@ module.exports = function(app) {
     var currentUser;
     app.get("/", function(req, res) {
         res.render("home");
-    });//home page route
+    }); //home page route
 
     app.get("/users", function(req, res) {
         res.render("users");
-    });//log-in route
+    }); //log-in route
 
     app.get("/users/:username", function(req, res) {
         database.Client.findOne({
@@ -16,7 +16,7 @@ module.exports = function(app) {
         }).then(function(data) {
             res.render("clients", { contents: data, currentUser: currentUser });
         });
-    });//update profile route
+    }); //update profile route
     app.get("/users/:username/dashboard", function(req, res) {
         database.Client.findOne({
             include: [database.Job],
@@ -24,14 +24,14 @@ module.exports = function(app) {
         }).then(function(data) {
             res.render("dashboard", { contents: data, currentUser: currentUser });
         });
-    });//dashboard route
+    }); //dashboard route
     app.put("/users/:username", function(req, res) {
         database.Client.update(req.body, {
             where: { username: req.params.username }
         }).then(function() {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
-    });//update profile put route
+    }); //update profile put route
     //image upload:
     app.put("/users/image/", function(req, res) {
         console.log(req.body.pImage);
@@ -52,14 +52,6 @@ module.exports = function(app) {
             username: req.body.username,
             isContractor: req.body.contractor
         }).then(function(data) {
-            if (typeof localStorage === "undefined" || localStorage === null) {
-                var LocalStorage = require('node-localstorage').LocalStorage;
-                localStorage = new LocalStorage('./scratch');
-            }
-
-            localStorage.setItem('username', data.username);
-            localStorage.setItem('id', data.id);
-            currentUser = { username: localStorage.getItem('username'), id: localStorage.getItem("id") };
             res.redirect("/users/" + data.username);
         });
     });
@@ -120,12 +112,16 @@ module.exports = function(app) {
         });
     });
     app.post("/jobs/:id", function(req, res) {
-        database.Bid.create({
-            bid: req.body.amount,
-            JobId: req.params.id,
-            ClientId: req.body.client
-        }).then(function() {
-            res.redirect("/jobs/" + req.params.id);
+        database.Client.findOne({
+            where: { username: req.body.client }
+        }).then(function(data) {
+            database.Bid.create({
+                bid: req.body.amount,
+                JobId: req.params.id,
+                ClientId: data.id
+            }).then(function(data) {
+                res.redirect("/jobs/" + req.params.id);
+            });
         });
     });
     app.put("/jobs/:id", function(req, res) {

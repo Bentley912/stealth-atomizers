@@ -28,7 +28,7 @@
                 <div class="form-group">
                 <label for="amount" class="control-label">Amount</label>
                     <input type="number" class="form-control" id="amount" placeholder="Enter your amount" autocomplete="off" name="amount">
-                    <input type="hidden" name="client" value="{{currentUser.id}}">
+                    <input type="hidden" id = "client" name="client" value="">
                     <input type="hidden" name="owner" value="{{contents.Client.username}}">
                 </div>
                     <button type="submit" class="btn btn-success">Place Bid</button>
