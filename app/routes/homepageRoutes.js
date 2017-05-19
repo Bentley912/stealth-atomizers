@@ -112,12 +112,16 @@ module.exports = function(app) {
         });
     });
     app.post("/jobs/:id", function(req, res) {
-        database.Bid.create({
-            bid: req.body.amount,
-            JobId: req.params.id,
-            ClientId: req.body.client
+        database.Client.findOne({
+            where: { username: req.body.client }
         }).then(function(data) {
-            res.redirect("/jobs/" + req.params.id);
+            database.Bid.create({
+                bid: req.body.amount,
+                JobId: req.params.id,
+                ClientId: data.id
+            }).then(function(data) {
+                res.redirect("/jobs/" + req.params.id);
+            });
         });
     });
     app.put("/jobs/:id", function(req, res) {
