@@ -40,43 +40,53 @@ module.exports = function(app) {
     });
     
 //**********************************************************************
-    //image upload:
-    app.post("/users/image/", function(req, res){
-        var AWS = require('aws-sdk');
-        var s3 = require('s3');
-        var awsS3Client = new AWS.S3();
-        var options = {
-        s3Client: awsS3Client,
-        // more options available. See API docs below. 
-        };
-        var client = s3.createClient(options);
-    
+//image upload:
+  
+var dotenv=require('dotenv');
+dotenv.load();
 
-    var params = {
-        localFile: req.body.pImage,
- 
-        s3Params: {
-            Bucket: "stealthatomizers",
-            Key: "some/remote/file",
-        // other options supported by putObject, except Body and ContentLength. 
-        // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
-        },
-    };
+//console.log(process.env.S3_BUCKET);
+//console.log(process.env.AWS_ACCESS_KEY_ID);
 
-    var uploader = client.uploadFile(params);
-    uploader.on('error', function(err) {
-        console.error("unable to upload:", err.stack);
-    });
+var multer = require('multer');  // don't forget your terminal installation: npm 
 
-    uploader.on('progress', function() {
-        console.log("progress", uploader.progressMd5Amount,
-        uploader.progressAmount, uploader.progressTotal);
-    });
+var storage = multer.memoryStorage()
 
-    uploader.on('end', function() {
-        console.log("done uploading");
+var upload = multer({ storage: storage })
+
+var S3FS = require('s3fs');
+
+// this bucketPath statement gets your bucket from the .env:
+
+var bucketPath = process.env.S3_BUCKET;
+
+var s3Options = {
+  region: 'us-east-1',
+};
+
+var fsImpl = new S3FS(bucketPath, s3Options);
+
+app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
+
+    var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+"."+req.file.mimetype.split("/")[1];
+    //console.log(req.file);
+    fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {
+        if (err) throw(err);
+        
+        console.log("saved !!!!");
+        //*** IMPORTANT: Use this code to save the image link to database model and comment the console log.
+
+            // database.Art.create({
+            //     art_file: 'https://s3.amazonaws.com/singhtest/'+fileName,
+            //     ContributionId: req.body.ContributionId,
+            //     StoryId: req.body.StoryId
+            // }).then(function(results) {
+            //     //res.redirect("/story/"+req.body.StoryId)
+            //     console.log("finally !!!");
+            // })    
     });
 });
+
 //**********************************************************************
     app.post("/users", function(req, res) {
         database.Client.create({

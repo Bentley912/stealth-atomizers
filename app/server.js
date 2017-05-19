@@ -7,6 +7,9 @@ var express = require("express"),
     PORT = process.env.PORT || 8080,
     db = require("./models");
 
+
+var dotenv=require('dotenv');
+dotenv.load();
 var AWS = require('aws-sdk');
 var s3 = require('s3');
 var client = s3.createClient({
