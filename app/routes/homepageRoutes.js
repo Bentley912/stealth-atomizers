@@ -7,7 +7,7 @@ module.exports = function(app) {
     }); //home page route
 
     //for image upload
-    app.get("/image", function(req, res){
+    app.get("/image", function(req, res) {
         res.render("imageUpload");
     });
 
@@ -37,56 +37,53 @@ module.exports = function(app) {
             res.redirect("/users/" + req.params.username + "/dashboard");
         });
     });
-    
-//**********************************************************************
-//image upload:
-  
-var dotenv=require('dotenv');
-dotenv.load();
 
-//console.log(process.env.S3_BUCKET);
-//console.log(process.env.AWS_ACCESS_KEY_ID);
+    //**********************************************************************
+    //image upload:
 
-var multer = require('multer');  // don't forget your terminal installation: npm 
+    var dotenv = require('dotenv');
+    dotenv.load();
 
-var storage = multer.memoryStorage()
+    //console.log(process.env.S3_BUCKET);
+    //console.log(process.env.AWS_ACCESS_KEY_ID);
 
-var upload = multer({ storage: storage })
+    var multer = require('multer'); // don't forget your terminal installation: npm 
 
-var S3FS = require('s3fs');
+    var storage = multer.memoryStorage()
 
-// this bucketPath statement gets your bucket from the .env:
+    var upload = multer({ storage: storage })
 
-var bucketPath = process.env.S3_BUCKET;
+    var S3FS = require('s3fs');
 
-var s3Options = {
-  region: 'us-east-1',
-};
+    // this bucketPath statement gets your bucket from the .env:
 
-var fsImpl = new S3FS(bucketPath, s3Options);
+    var bucketPath = process.env.S3_BUCKET;
 
-app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
+    var s3Options = {
+        region: 'us-east-1',
+    };
 
-    var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+"."+req.file.mimetype.split("/")[1];
-    //console.log(req.file);
-    fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {
-        if (err) throw(err);
-        
-        console.log("saved !!!!");
-        //*** IMPORTANT: Use this code to save the image link to database model and comment the console log.
+    var fsImpl = new S3FS(bucketPath, s3Options);
 
-            // database.Art.create({
-            //     art_file: 'https://s3.amazonaws.com/singhtest/'+fileName,
-            //     ContributionId: req.body.ContributionId,
-            //     StoryId: req.body.StoryId
-            // }).then(function(results) {
-            //     //res.redirect("/story/"+req.body.StoryId)
-            //     console.log("finally !!!");
-            // })    
+    app.post("/api/new/art", upload.single('fileupload'), function(req, res, next) {
+
+        var fileName = "img-Story" + req.body.id + req.file.mimetype.split("/")[1];
+        fsImpl.writeFile(fileName, req.file.buffer, "binary", function(err) {
+            if (err) throw (err);
+
+            console.log("saved !!!!");
+            //*** IMPORTANT: Use this code to save the image link to database model and comment the console log.
+
+            database.Client.update({
+                img_file: 'https://s3.amazonaws.com/singhtest/' + fileName
+            }, { where: { username: req.body.id } }).then(function(results) {
+                res.redirect("/users/" + req.body.id + "/dashboard");
+                console.log("finally !!!");
+            });
+        });
     });
-});
 
-//**********************************************************************
+    //**********************************************************************
     app.post("/users", function(req, res) {
         database.Client.create({
             email: req.body.signup,

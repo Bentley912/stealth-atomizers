@@ -8,13 +8,13 @@ var express = require("express"),
     db = require("./models");
 
 
-var dotenv=require('dotenv');
+var dotenv = require('dotenv');
 dotenv.load();
 var AWS = require('aws-sdk');
 var s3 = require('s3');
 var client = s3.createClient({
-    maxAsyncS3: 20,     // this is the default 
-    s3RetryCount: 3,    // this is the default 
+    maxAsyncS3: 20, // this is the default 
+    s3RetryCount: 3, // this is the default 
     s3RetryDelay: 1000, // this is the default 
     multipartUploadThreshold: 20971520, // this is the default (20 MB) 
     multipartUploadSize: 15728640, // this is the default (15 MB) 
