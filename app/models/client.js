@@ -39,9 +39,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         isContractor: {
             type: DataTypes.BOOLEAN
-        },
-        img_file: {
-            type: DataTypes.STRING
         }
     }, {
 
