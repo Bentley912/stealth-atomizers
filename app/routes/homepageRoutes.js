@@ -39,51 +39,6 @@ module.exports = function(app) {
     });
 
     //**********************************************************************
-    //image upload:
-
-    var dotenv = require('dotenv');
-    dotenv.load();
-
-    //console.log(process.env.S3_BUCKET);
-    //console.log(process.env.AWS_ACCESS_KEY_ID);
-
-    var multer = require('multer'); // don't forget your terminal installation: npm 
-
-    var storage = multer.memoryStorage()
-
-    var upload = multer({ storage: storage })
-
-    var S3FS = require('s3fs');
-
-    // this bucketPath statement gets your bucket from the .env:
-
-    var bucketPath = process.env.S3_BUCKET;
-
-    var s3Options = {
-        region: 'us-east-1',
-    };
-
-    var fsImpl = new S3FS(bucketPath, s3Options);
-
-    app.post("/api/new/art", upload.single('fileupload'), function(req, res, next) {
-
-        var fileName = "img-Story" + req.body.id + req.file.mimetype.split("/")[1];
-        fsImpl.writeFile(fileName, req.file.buffer, "binary", function(err) {
-            if (err) throw (err);
-
-            console.log("saved !!!!");
-            //*** IMPORTANT: Use this code to save the image link to database model and comment the console log.
-
-            database.Client.update({
-                img_file: 'https://s3.amazonaws.com/singhtest/' + fileName
-            }, { where: { username: req.body.id } }).then(function(results) {
-                res.redirect("/users/" + req.body.id + "/dashboard");
-                console.log("finally !!!");
-            });
-        });
-    });
-
-    //**********************************************************************
     app.post("/users", function(req, res) {
         database.Client.create({
             email: req.body.signup,
