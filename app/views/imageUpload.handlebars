@@ -1,6 +1,6 @@
 <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
 	<div class="form-group">
-		<input type="hidden" name="StoryId" value="{{this.contributions.0.StoryId}}">
+		<input type="hidden" id = "client" name="id" value="">
 		
 		<!-- the ContributionId value for this hidden input will be set by the click function, which comes from the actual contribution -->
 		<input type="hidden" id="ContributionId" name="ContributionId">
