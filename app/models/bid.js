@@ -1,15 +1,15 @@
 module.exports = function(sequelize, DataTypes) {
     var Bid = sequelize.define("Bid", {
-        
+
         bid: {
-            type: DataTypes.FLOAT
+            type: DataTypes.STRING
         },
-        
+
     }, {
-        
+
         classMethods: {
             associate: function(models) {
-                
+
                 Bid.belongsTo(models.Job, {
                     foreignKey: {
                         allowNull: false

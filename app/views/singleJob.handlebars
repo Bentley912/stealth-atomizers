@@ -1,26 +1,11 @@
-{{!--<div class="container">
-    <h1>Client Info</h1>
-    <h2>Posted By: <a href="/users/{{contents.Client.username}}/dashboard">{{contents.Client.username}}</a></h2>
-    <h2>Email: {{contents.Client.email}}</h2>
-    <h2>Contact Number: {{contents.Client.contact}}</h2>
-    <h1>Position info</h1>
-    <h2>Job Title: {{contents.name}}</h2>
-    <h2>Description: {{contents.description}}</h2>
-    {{#unless contents.taken}}
-    <h2>Still Available</h2>
-    {{/unless}}
-    {{#if contents.taken}}
-    <h2>Not Longer Available</h2>
-    {{/if}}
-</div>--}}
-
+{{> elements/header}}
 <div class="well well-lg">
     <div class="panel panel-success">
         <div class="panel-heading">
             <h2 class="panel-title">Job Title: {{contents.name}}</h2>
         </div>
         <div class="panel-body">
-            <h4>Posted By: <a href="/users/{{contents.Client.username}}/dashboard">{{contents.Client.username}}</a></h4>
+            <h4>Posted By: <a href="/users/{{contents.Client.username}}/profile">{{contents.Client.username}}</a></h4>
             <h4>Email: {{contents.Client.email}}</h4>
             <h4>Contact Number: {{contents.Client.contact}}</h4>
             <h4>Description: {{contents.description}}</h4>
@@ -33,3 +18,27 @@
         </div>
     </div>
 </div>
+<div class="container">
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+        <div class="well bs-component">
+            <form class="form-horizontal" action="/jobs/{{contents.id}}" method="POST"> 
+            <fieldset>
+                <legend>Make a bid </legend>
+                <div class="form-group">
+                <label for="amount" class="control-label">Amount</label>
+                    <input type="number" class="form-control" id="amount" placeholder="Enter your amount" autocomplete="off" name="amount">
+                    <input type="hidden" id = "client" name="client" value="">
+                    <input type="hidden" name="owner" value="{{contents.Client.username}}">
+                </div>
+                    <button type="submit" class="btn btn-success">Place Bid</button>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+        {{#each contents.Bids}}
+        <h3>Bidder Id: {{this.ClientId}}</h3>
+        <h4>Bid amount: {{this.bid}}</h4>
+        <hr>
+        {{/each}}

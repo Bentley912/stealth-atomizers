@@ -7,7 +7,7 @@
         <input type="hidden"  name ="ClientId"value = {{contents.id}}>
         <button class= "btn btn-danger">Submit</button>
     </form>--}}
-
+{{>elements/header}}
 <div class="container">
     <div class="well bs-component">
         <form class="form-horizontal postForm" action="/users/{{contents.username}}/dashboard" method="POST">
@@ -21,7 +21,16 @@
                 <label class="control-label" for="description">Description</label>
                 <input class="form-control" id="jobDescription" type="text" name="description">
             </div>
-             <input type="hidden"  name ="ClientId"value = {{contents.id}}>
+            <div class="form-group">
+             <label for="select" class="control-label">Category</label>
+                <select class="form-control" id="select" name="jobCategory">
+                <option>Front-End</option>
+                <option>Back-End</option>
+                <option>Design</option>
+                <option>Full-Stack</option>
+                </select>
+            </div>  
+             <input type="hidden"  name ="ClientId" value = {{contents.id}}>
             <button class= "btn btn-danger">Submit</button>
         </form>
     </div>  
