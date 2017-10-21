@@ -42,11 +42,11 @@ module.exports = function(app) {
     app.post("/users", function(req, res) {
         database.Client.create({
             email: req.body.signup,
-            password: req.body.password,
             username: req.body.username,
-            isContractor: req.body.contractor
+            phone: req.body.phone,
+            info: req.body.info
         }).then(function(data) {
-            res.redirect("/users/" + data.username);
+            res.json(data);
         });
     });
     app.post("/users/:username/dashboard", function(req, res) {
